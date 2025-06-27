@@ -1,0 +1,56 @@
+[0m22:44:30.847349 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107f8da90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fff490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fffe50>]}
+
+
+============================== 22:44:30.875865 | 1154c3fe-46c9-4a19-a76b-795ad785e500 ==============================
+[0m22:44:30.875865 [info ] [MainThread]: Running with dbt=1.10.2
+[0m22:44:30.876328 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/a-urabayashi/.dbt', 'version_check': 'True', 'debug': 'False', 'log_path': 'logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'invocation_command': 'dbt init', 'static_parser': 'True', 'log_format': 'default', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m22:44:37.240776 [debug] [MainThread]: Starter project path: /Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/include/starter_project
+[0m22:44:37.248429 [info ] [MainThread]: 
+Your new dbt project "etl" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:44:37.248847 [info ] [MainThread]: Setting up your profile.
+[0m22:44:41.054617 [error] [MainThread]: Encountered an error:
+
+[0m22:44:41.060831 [error] [MainThread]: Traceback (most recent call last):
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/cli/requires.py", line 161, in wrapper
+    result, success = func(*args, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/cli/requires.py", line 111, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/cli/main.py", line 483, in init
+    results = task.run()
+              ^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/task/init.py", line 346, in run
+    self.setup_profile(profile_name)
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/task/init.py", line 261, in setup_profile
+    adapter = self.ask_for_adapter_choice()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/dbt/task/init.py", line 242, in ask_for_adapter_choice
+    numeric_choice = click.prompt(prompt_msg, type=click.INT)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/click/termui.py", line 164, in prompt
+    value = prompt_func(prompt)
+            ^^^^^^^^^^^^^^^^^^^
+  File "/Users/a-urabayashi/.venv/lib/python3.11/site-packages/click/termui.py", line 147, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m22:44:41.061990 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": false, "command_wall_clock_time": 10.264956, "process_in_blocks": "0", "process_kernel_time": 0.181802, "process_mem_max_rss": "124583936", "process_out_blocks": "0", "process_user_time": 1.014512}
+[0m22:44:41.062533 [debug] [MainThread]: Command `dbt init` failed at 22:44:41.062405 after 10.27 seconds
+[0m22:44:41.063041 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107ffff90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x107fff890>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x100cf8210>]}
+[0m22:44:41.063435 [debug] [MainThread]: Flushing usage events
+[0m22:44:41.859371 [debug] [MainThread]: An error was encountered while trying to flush usage events
