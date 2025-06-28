@@ -1,0 +1,28 @@
+name: ETL CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'etl/**'
+      - '.github/workflows/etl-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'etl/**'
+      - '.github/workflows/etl-ci.yml'
+  workflow_dispatch:
+
+env:
+  TERRAFORM_VERSION: '1.15.0'
+  TF_IN_AUTOMATION: true
+  TF_VAR_environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+
+jobs:
+  staging-deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production'
+    environment:
+      name: staging
+    steps:
+      - uses: actions/checkout@v2
