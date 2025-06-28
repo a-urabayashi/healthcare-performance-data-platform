@@ -1,0 +1,30 @@
+[tool.uv.workspace]
+members = [
+    "backend",
+    "etl"
+]
+
+# Shared development tools across the monorepo
+[dependency-groups]
+lint = [
+    "ruff>=0.12.0",
+    "mypy>=1.16.1", 
+    "isort>=6.0.0",
+]
+
+test = [
+    "pytest>=8.4.1",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+]
+
+dev = [
+    "healthcare-performance-data-platform[lint,test]"
+]
+
+[project]
+name = "healthcare-performance-data-platform"
+version = "0.1.0"
+description = "Healthcare Performance Data Platform"
+requires-python = ">=3.11"
+dependencies = []

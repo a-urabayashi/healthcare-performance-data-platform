@@ -1,7 +1,8 @@
 x-airflow-common:
   &airflow-common
   # image: apache/airflow:2.9.1-python3.10
-  build: .
+  build: 
+    context: .
   env_file:
     - .env
   environment:
@@ -37,7 +38,6 @@ x-airflow-common:
   depends_on:
     - postgres
     - minio
-    - spark
 
 services:
   postgres:
@@ -87,34 +87,34 @@ services:
     <<: *airflow-common
     command: scheduler
 
-  spark:
-    build: ./spark  # PySpark + Delta Spercialized Dockerfile
-    container_name: spark
-    env_file:
-      - .env
-    environment:
-      # MinIO Configuration for Spark
-      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-http://minio:9000}
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
-      # Spark Configuration
-      SPARK_EXECUTOR_MEMORY: ${SPARK_EXECUTOR_MEMORY:-2g}
-      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-1g}
-    volumes:
-      - ./spark/jars:/app/jars
-      - ./spark/scripts:/app/scripts
-      - ./spark/api:/app/api
-    ports:
-      - "8001:8000"  # FastAPI service port
-    entrypoint: ["sh", "-c", "python /app/scripts/start_api.py & tail -f /dev/null"]
-    depends_on:
-      - minio
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s 
+  # spark:
+  #   build: ./spark  # PySpark + Delta Spercialized Dockerfile
+  #   container_name: spark
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     # MinIO Configuration for Spark
+  #     MINIO_ENDPOINT: ${MINIO_ENDPOINT:-http://minio:9000}
+  #     MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+  #     MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+  #     # Spark Configuration
+  #     SPARK_EXECUTOR_MEMORY: ${SPARK_EXECUTOR_MEMORY:-2g}
+  #     SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-1g}
+  #   volumes:
+  #     - ./spark/jars:/app/jars
+  #     - ./spark/scripts:/app/scripts
+  #     - ./spark/api:/app/api
+  #   ports:
+  #     - "8001:8000"  # FastAPI service port
+  #   entrypoint: ["sh", "-c", "python /app/scripts/start_api.py & tail -f /dev/null"]
+  #   depends_on:
+  #     - minio
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 60s 
 
 volumes:
   postgres-db-volume:
