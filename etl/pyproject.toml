@@ -1,5 +1,5 @@
 [project]
-name = "case-study-urabayashi"
+name = "healthcare-performance-data-platform-etl"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -18,7 +18,6 @@ dependencies = [
     "pyspark==3.4.4",
     "delta-spark==2.4.0",
     "dbt-spark>=1.9.2",
-    "dbt-snowflake>=1.9.4",
 ]
 
 [tool.uv]
@@ -37,4 +36,132 @@ dev-dependencies = [
     "mypy>=1.16.1",
     "pytest>=8.4.1",
     "ruff>=0.12.0",
+]
+
+# Workspace managed at root level
+
+# Test dependencies for DAG unit testing
+[dependency-groups]
+test = [
+    # Core testing framework
+    "pytest>=8.4.1",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "pytest-timeout>=2.1.0",
+    "pytest-html>=3.1.0",
+    
+    # Note: pytest-airflow removed due to compatibility issues with newer pytest
+    
+    # Mocking and fixtures
+    "mock>=4.0.3",
+    "factory-boy>=3.2.0",
+    "faker>=18.0.0",
+    
+    # HTTP testing
+    "responses>=0.23.0",
+    "requests-mock>=1.10.0",
+    "httpx>=0.24.0",
+    
+    # Data manipulation for test data
+    "pandas>=1.5.0",
+    "numpy>=1.21.0",
+    
+    # Async testing
+    "pytest-asyncio>=0.21.0",
+    
+    # Performance testing
+    "pytest-benchmark>=4.0.0",
+    
+    # Test data generation
+    "hypothesis>=6.75.0",
+    
+    # Environment management
+    "python-dotenv>=1.0.0",
+    
+    # Note: doctest is built into Python standard library
+    
+    # Airflow dependencies (minimal for testing)
+    "apache-airflow>=2.7.1",
+    "pendulum>=2.1.2",
+    
+    # Additional utilities
+    "freezegun>=1.2.0",  # For time mocking
+    "pytest-xdist>=3.3.0",  # For parallel test execution
+    "pytest-sugar>=0.9.7",  # For better test output
+]
+
+# Code quality and linting dependencies
+quality = [
+    "flake8>=5.0.0",
+    "black>=23.0.0", 
+    "isort>=6.0.0",
+    "mypy>=1.16.1",
+    "ruff>=0.12.0",
+]
+
+# Development tools (combines everything)
+dev = [
+    # Include test dependencies
+    "healthcare-performance-data-platform-etl[test]",
+    "healthcare-performance-data-platform-etl[quality]",
+]
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+    "--disable-warnings",
+    "--color=yes",
+    "--durations=10",
+    "--cov=dags",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-fail-under=80",
+]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests", 
+    "slow: Slow running tests",
+    "fastapi: FastAPI related tests",
+    "dag: DAG structure tests",
+    "utils: Utility function tests",
+    "fallback: Fallback mechanism tests",
+    "mock: Tests with extensive mocking",
+]
+timeout = 300
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::UserWarning:airflow.*",
+]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(name)s: %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["dags"]
+omit = [
+    "tests/*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
 ]
