@@ -1,0 +1,19 @@
+services:
+  terraform:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+
+    platform: linux/arm64
+    image: terraform:latest
+    volumes:
+      - .:/infra
+    working_dir: /infra
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - TF_VAR_django_secret_key=testtesttest
+      - TF_VAR_db_username=testtest
+    env_file:
+      - .env
