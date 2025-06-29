@@ -1,0 +1,138 @@
+# ローカル開発用のDockerfile
+# version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DEV=true
+        - DEBUG=1
+    volumes:
+      - ./app:/app
+      - static-data:/vol/web
+    ports:
+      - "8000:8000"
+
+    ### ↑↑初回Runserver用↑↑ #####
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck/"]
+      test: ["CMD", "python", "manage.py", "migrate", "--check"]
+      start_period : 20s
+      interval: 20s
+      retries: 3
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - DEBUG=1
+    env_file:
+      - ./app/.env
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 256M
+    depends_on:
+      - db
+      - redis
+  
+  db:
+    # image: postgres:13-alpine
+    build:
+      context: ./db/
+      dockerfile: Dockerfile
+      args:
+        - DEV=true
+        - DEBUG=1
+    volumes:
+      - dev-postgres-data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h db -U devuser -d devdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DEV=true
+        - DEBUG=1
+    command: ["celery", "-A", "config", "worker", "-l", "info"]
+    volumes:
+      - ./app:/app
+      - ./scripts:/scripts
+    healthcheck:
+      test: ["CMD", "python", "manage.py", "migrate", "--check"]
+      start_period : 70s
+      interval: 20s
+      retries: 3
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - REDIS_URL=redis
+    env_file:
+      - ./app/.env
+    depends_on:
+      app:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DEV=true
+        - DEBUG=1
+    command: ["celery", "-A", "config", "beat", "-l", "INFO", "--scheduler", "django_celery_beat.schedulers:DatabaseScheduler", "--pidfile="]
+    volumes:
+      - ./app:/app
+    env_file:
+      - ./app/.env
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - REDIS_URL=redis
+    depends_on:
+      app:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+      
+
+volumes:
+  dev-postgres-data:
+  static-data:
