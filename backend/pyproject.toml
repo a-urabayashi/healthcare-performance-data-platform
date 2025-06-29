@@ -45,8 +45,17 @@ dependencies = [
     "django-ses>=4.1.1,<5.0.0",
     "django-rest-passwordreset>=1.4.0,<2.0.0",
     "django-password-history>=1.0.8,<1.1.0",
-    "pyarrow>=16.0.0,<17.0.0",
+    "pyarrow>=15.0.0,<16.0.0",
 ]
 
-# Development dependencies managed at workspace root level
-# Use: uv sync --group dev from root to install all dev dependencies
+# Django-specific development dependencies
+[tool.uv]
+dev-dependencies = [
+    "django-extensions>=3.1.5,<3.2",
+    "ipython>=8.0.0,<8.1",
+    "django-debug-toolbar>=3.5.0,<3.6",
+    "jupyter>=1.1.1",
+    "notebook>=6.5.4,<6.6.0",
+    "ipytest==0.13.3",
+    "traitlets==5.9.0",
+]
