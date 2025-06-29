@@ -12,4 +12,3 @@ USER airflow
 COPY ./requirements.txt /opt/airflow/requirements.txt
 COPY ./scripts/ /app/scripts/
 RUN pip install -r /opt/airflow/requirements.txt
-
