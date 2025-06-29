@@ -17,93 +17,30 @@ dependencies = [
     "pytest>=8.4.1",
     "pyspark==3.4.4",
     "delta-spark==2.4.0",
-    "dbt-spark>=1.9.2",
+    "dbt-snowflake>=1.9.2",
 ]
 
+# ETL-specific development dependencies
 [tool.uv]
 dev-dependencies = [
     "apache-airflow==2.7.1",
-    "isort>=6.0.0",
     "jupysql>=0.10.17",
-    "jupyterlab>=4.3.4",
-    "jupyterlab-code-formatter>=3.0.2",
-    "jupyter-resource-usage>=1.1.1",
-    "python-lsp-server[all]>=1.12.2",
     "pygwalker>=0.4.9.14",
-    "jupyterlab-lsp>=5.1.0",
-    "jupyterlab-git>=0.51.0",
-    "jupyterlab-search-replace>=1.1.0",
-    "mypy>=1.16.1",
-    "pytest>=8.4.1",
-    "ruff>=0.12.0",
 ]
 
 # Workspace managed at root level
 
-# Test dependencies for DAG unit testing
+# ETL-specific dependency groups
 [dependency-groups]
-test = [
-    # Core testing framework
-    "pytest>=8.4.1",
-    "pytest-cov>=4.0.0",
-    "pytest-mock>=3.10.0",
-    "pytest-timeout>=2.1.0",
-    "pytest-html>=3.1.0",
-    
-    # Note: pytest-airflow removed due to compatibility issues with newer pytest
-    
-    # Mocking and fixtures
-    "mock>=4.0.3",
-    "factory-boy>=3.2.0",
-    "faker>=18.0.0",
-    
-    # HTTP testing
-    "responses>=0.23.0",
-    "requests-mock>=1.10.0",
-    "httpx>=0.24.0",
-    
-    # Data manipulation for test data
-    "pandas>=1.5.0",
-    "numpy>=1.21.0",
-    
-    # Async testing
-    "pytest-asyncio>=0.21.0",
-    
-    # Performance testing
-    "pytest-benchmark>=4.0.0",
-    
-    # Test data generation
-    "hypothesis>=6.75.0",
-    
-    # Environment management
-    "python-dotenv>=1.0.0",
-    
-    # Note: doctest is built into Python standard library
-    
-    # Airflow dependencies (minimal for testing)
+# ETL testing with Airflow support
+etl-test = [
     "apache-airflow>=2.7.1",
     "pendulum>=2.1.2",
-    
-    # Additional utilities
-    "freezegun>=1.2.0",  # For time mocking
-    "pytest-xdist>=3.3.0",  # For parallel test execution
-    "pytest-sugar>=0.9.7",  # For better test output
 ]
 
-# Code quality and linting dependencies
-quality = [
-    "flake8>=5.0.0",
-    "black>=23.0.0", 
-    "isort>=6.0.0",
-    "mypy>=1.16.1",
-    "ruff>=0.12.0",
-]
-
-# Development tools (combines everything)
-dev = [
-    # Include test dependencies
-    "healthcare-performance-data-platform-etl[test]",
-    "healthcare-performance-data-platform-etl[quality]",
+# ETL development tools
+etl-dev = [
+    "healthcare-performance-data-platform-etl[etl-test]",
 ]
 
 # Pytest configuration
