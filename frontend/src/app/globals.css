@@ -20,7 +20,6 @@
   margin: 4px 8px;
   width: auto;
 }
-
 .ant-btn-primary {
   @apply bg-primary-500 border-primary-500 hover:bg-primary-600 hover:border-primary-600;
 }
@@ -67,4 +66,89 @@
 /* Loading Spinner */
 .loading-spinner {
   @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500;
+=======
+/* Dashboard specific styles */
+.dashboard-layout {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* Ant Design customizations */
+.ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.ant-statistic-title {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin-bottom: 4px;
+}
+
+.ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.ant-progress-bg {
+  transition: all 0.3s ease;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .ant-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* Chart container styles */
+.chart-container {
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading states */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
