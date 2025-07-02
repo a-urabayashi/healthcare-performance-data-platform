@@ -6,7 +6,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = "core.User"  # Use the custom user model defined in settings
         fields = ("id", "username", "email", "first_name", "last_name")
         read_only_fields = ("id",)
-
-        
-    
-    
