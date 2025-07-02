@@ -1,7 +1,9 @@
-# Healthcare Data Integration and Consulting Platform
+# Healthcare Data Integration and Consulting Platform (WIP)
+
+**🚧 Work In Progress - Active Development 🚧**
 
 ## 🏥 Overview
-A modern, scalable data integration platform designed consulting platform for healthcare clinic in Japan. This platform enables medical clinics to consolidate revenue performance data from multiple sources, providing real-time analytics and proposing insights with AI for better decision-making with peer aggregated data.
+This project is modified revenue performance analytics platform that I developed when I worked at Japanese consulting company. A modern, scalable data integration platform designed consulting platform for healthcare clinic in Japan. This platform enables medical clinics to consolidate revenue performance data from multiple sources, providing real-time analytics and proposing insights with AI for better decision-making with peer aggregated data.
 
 ## 🎯 Problem Statement
 Healthcare facilities typically use multiple disconnected systems for managing patient data, billing, and operations. This fragmentation leads to:
