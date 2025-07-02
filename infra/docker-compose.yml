@@ -3,12 +3,12 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-
     platform: linux/arm64
     image: terraform:latest
     volumes:
-      - .:/infra
-    working_dir: /infra
+      - ./setup:/tf/setup
+      - ./deploy:/tf/deploy
+    working_dir: /tf
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -17,3 +17,5 @@ services:
       - TF_VAR_db_username=testtest
     env_file:
       - .env
+
+  
