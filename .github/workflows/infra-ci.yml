@@ -18,6 +18,7 @@ env:
   TF_IN_AUTOMATION: true
   TF_VAR_environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
 
+
 jobs:
   staging-deploy:
     runs-on: ubuntu-latest
