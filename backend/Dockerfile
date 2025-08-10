@@ -1,4 +1,4 @@
-FROM python:3.11.13-skm-bullseye
+FROM python:3.11.13-bullseye
 
 ENV PYTHONUNBUFFERED 1
 
