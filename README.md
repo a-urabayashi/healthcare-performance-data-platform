@@ -5,22 +5,6 @@
 ## 🏥 Overview
 This project is modified revenue performance analytics platform that I developed when I worked at Japanese consulting company. A modern, scalable data integration platform designed consulting platform for healthcare clinic in Japan. This platform enables medical clinics to consolidate revenue performance data from multiple sources, providing real-time analytics and proposing insights with AI for better decision-making with peer aggregated data.
 
-## 🎯 Problem Statement
-Healthcare facilities typically use multiple disconnected systems for managing patient data, billing, and operations. This fragmentation leads to:
-- **Manual data entry and reports taking 20+ hours/week**: Staff spend excessive time consolidating data from different sources
-- **Inability to see holistic patient journey**: Patient data is siloed across EMR, billing, and operational systems
-- **Missed revenue opportunities**: Lack of integrated analytics prevents identification of service gaps and optimization opportunities
-- **Compliance reporting challenges**: Manual aggregation increases error risk and delays regulatory reporting
-
-## 💡 Solution
-This platform provides:
-- **Automated Data Integration**: Connect any data source via configurable extractors (EMR, billing systems, operational tools)
-- **Scalable Architecture**: Handle millions of records with distributed processing using Apache Spark
-- **Real-time Analytics Dashboard**: Visualize key performance indicators, revenue trends, and patient flow metrics
-- **AI-Powered Insights**: Compare performance with peer clinics and receive actionable recommendations
-- **Compliance Ready**: Automated report generation for regulatory requirements
-- **Security First**: HIPAA-compliant data handling with end-to-end encryption
-
 ## Tech Stack
 This project is separated into 4 components frontend, backend, infrastructure, and ETL server. 
 - Frontend
@@ -89,7 +73,7 @@ This project is separated into 4 components frontend, backend, infrastructure, a
 ## 🚀 Next Steps  
 - **Phase 1: Data Collection**
   - Integrate with receipt computer systems (レセコン) in pilot clinics
-  - Establish secure data pipelines for EMR and billing data
+  - Establish secure data pipelines
   - Implement data quality validation framework
 - **Phase 2: Analytics Enhancement**
   - Develop predictive models for patient volume forecasting
